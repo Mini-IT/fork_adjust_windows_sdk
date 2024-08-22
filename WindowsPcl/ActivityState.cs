@@ -152,10 +152,14 @@ namespace AdjustSdk.Pcl
                 activityState.LastActivity = lastActivity;
 
             object purchaseIdsJson;
-            if (activityStateObjectMap.TryGetValue(PURCHASE_IDS, out purchaseIdsJson))
-                activityState.PurchaseIds =
-                    JsonConvert.DeserializeObject<LinkedList<string>>(purchaseIdsJson.ToString());
 
+            if (activityStateObjectMap.TryGetValue(PURCHASE_IDS, out purchaseIdsJson))
+            {
+                string ids = purchaseIdsJson.ToString();
+                var list = JsonConvert.DeserializeObject<List<string>>(ids);
+                activityState.PurchaseIds = new LinkedList<string>(list);
+            }
+            
             return activityState;
         }
 
