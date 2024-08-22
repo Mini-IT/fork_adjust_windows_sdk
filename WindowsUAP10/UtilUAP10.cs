@@ -109,7 +109,7 @@ namespace AdjustSdk
 
         public bool PersistValue(string key, string value)
         {
-            var valueFile = _localFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting).AsTask().Result;
+            var valueFile = _localFolder.CreateFileAsync(key, CreationCollisionOption.OpenIfExists).AsTask().Result;
             var valueBuffer = CryptographicBuffer.ConvertStringToBinary(value, BinaryStringEncoding.Utf8);
 
             return FileIO.WriteBufferAsync(valueFile, valueBuffer)
